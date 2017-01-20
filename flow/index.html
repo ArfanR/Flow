@@ -1,0 +1,96 @@
+<html>
+    <head>
+		<link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title></title>
+		<script src="js/vendor/jmin.js"></script>
+		<script src="js/menu.js"></script>
+		<script src="js/fluid.js"></script>
+		<script src="js/maps.js"></script>
+		<script src="js/all.js"></script>
+		<script src="js/world.js"></script>
+		<script src="js/tanks.js"></script>
+		<script src="js/weapons.js"></script>
+		<script src="js/projectiles.js"></script>
+		<script src="js/events.js"></script>
+    </head>
+    <body>
+    	<div id="container">
+			<div id="game">
+				<canvas id="hid" width="120" height="80"></canvas>
+				<canvas id="cv" width="720" height="480"></canvas>
+			</div>
+			<div id="sel">
+				<div class="map">
+					<div class="button on left t2">&lt;</div>
+					<div class="button on right t2">&gt;</div>
+					<div class="button on next t2">&gt; &gt; &gt;</div>
+					<h2>Map 1</h2>
+				</div><div class="boxes tanks">
+					<canvas width="720" height="480"></canvas>
+					<div class="p1">
+						<h3></h3>
+						<div class="info"></div>
+					</div>
+					<div class="p2">
+						<h3></h3>
+						<div class="info"></div>
+					</div>
+					<div class="vbar"></div>
+					<div class="button on next t2">&gt; &gt; &gt;</div>
+				</div><div class="boxes weapons">
+					<canvas width="720" height="480"></canvas>
+					<div class="p1">
+						<h3 class="a"></h3>
+						<div class="info a"></div>
+						<h3 class="b"></h3>
+						<div class="info b"></div>
+					</div>
+					<div class="p2">
+						<h3 class="a"></h3>
+						<div class="info a"></div>
+						<h3 class="b"></h3>
+						<div class="info b"></div>
+					</div>
+					<div class="vbar"></div>
+					<div class="button on next t2">&gt; &gt; &gt;</div>
+				</div>
+			</div>
+		</div>
+		<div id="d" style="position:absolute;left:5px;top:525px;height:20px;background:#9cf;padding:3px;">
+			<div style="position:absolute;top:0;left:200px;width:2px;height:100%;background:#000;"></div>
+			<div id="dd"></div>
+		</div>
+		<div id="d2" style="position:absolute;left:5px;top:575px;height:20px;background:#fc9;padding:3px;">
+			
+		</div>
+		<script>
+			var VECTOR_DRAW = 0;
+			var g;
+			$(document).ready(function() {
+				
+			});
+			function startGame() {
+				$("#game").css("opacity",0).css("display","block").animate({
+					opacity : 1
+				}, 500);
+				
+				var hid = $("#hid")[0],
+					hidg = hid.getContext("2d"),
+					cv = $("#cv")[0],
+					g = cv.getContext("2d");
+				
+				window.W = new World();
+				W.init();
+				W.initMap(maps[menu.map]);
+				window.g = g;
+				
+				setInterval(function() {	
+					W.step();
+					W.draw(cv, g, hid, hidg);
+
+				}, 25);
+			}
+		</script>
+    </body>
+</html>
